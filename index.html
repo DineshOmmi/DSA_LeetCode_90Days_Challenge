@@ -15,7 +15,7 @@ body{color:var(--fg);font:14px/1.45 ui-sans-serif,-apple-system,"Segoe UI",Inter
 main{width:100%;padding:6px 2px 24px}
 [hidden]{display:none!important}
 button,input{font:inherit;color:inherit}
-.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;margin-bottom:8px}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px 16px;margin-bottom:10px;padding-right:190px}
 .ttl{display:flex;align-items:baseline;gap:6px 12px;flex-wrap:wrap}
 h1{margin:0;font-size:21px;font-weight:750;letter-spacing:-.02em}
 .sub{margin:0;color:var(--mute);font-size:12.5px}
@@ -66,8 +66,10 @@ h1{margin:0;font-size:21px;font-weight:750;letter-spacing:-.02em}
 @media (hover:hover){.day:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--c) 14%,transparent)}}
 .day.dim{opacity:.2}
 .day.rv{background:transparent;border:1px dashed var(--line)}
+.day.rv .hd,.day.mk .hd{border-bottom-color:var(--line);background:transparent}
+.day.rv .hd{border-bottom-style:dashed}
 .day.mk{background:color-mix(in srgb,var(--fg) 8%,transparent);border-color:var(--line)}
-.hd{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 6px}
+.hd{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 6px;margin:-9px -10px 2px;padding:9px 10px 8px;border-bottom:1px solid color-mix(in srgb,var(--c) 24%,transparent);background:color-mix(in srgb,var(--c) 7%,transparent);border-radius:11px 11px 0 0}
 .dn{font-weight:700;font-size:13px;color:var(--fg);text-decoration:none;white-space:nowrap}
 .dn:hover{text-decoration:underline}
 .dn small{font-weight:500;color:var(--mute);margin-left:6px;font-size:11px}
@@ -97,7 +99,7 @@ footer{margin-top:12px;color:var(--mute);font-size:12px}
 :focus-visible{outline:2px solid color-mix(in srgb,var(--fg) 45%,transparent);outline-offset:2px}
 :focus:not(:focus-visible){outline:none}
 @media (max-width:1279px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media (max-width:620px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.pager span{min-width:120px}}
+@media (max-width:620px){.top{padding-right:0}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.pager span{min-width:120px}}
 @media (max-width:520px){
   main{padding:4px 0 18px}
   h1{font-size:19px}
@@ -112,13 +114,13 @@ footer{margin-top:12px;color:var(--mute);font-size:12px}
 <main>
 <div class="top">
   <div class="ttl"><h1>90-Day DSA Mastery</h1><p class="sub" id="when">LeetCode 150 · 18 patterns · 90 days</p></div>
+</div>
+<div class="tiles" id="tiles"></div>
+<div class="key">
   <div class="ctl">
     <div class="pager"><button id="pv" aria-label="Previous week">&#8249;</button><span id="wl"></span><button id="nx" aria-label="Next week">&#8250;</button></div>
     <button class="allbtn" id="all">All weeks</button>
   </div>
-</div>
-<div class="tiles" id="tiles"></div>
-<div class="key">
   <span class="mini"><select id="pf" aria-label="Filter by pattern"></select></span>
   <span class="d"><b style="background:var(--E)"></b>Easy</span><span class="d"><b style="background:var(--M)"></b>Medium</span><span class="d"><b style="background:var(--H)"></b>Hard</span>
   <span class="sp"></span>
@@ -127,7 +129,7 @@ footer{margin-top:12px;color:var(--mute);font-size:12px}
   <span class="mini"><button id="go">Today</button><button id="rs">Reset</button></span>
 </div>
 <div class="grid" id="grid"></div>
-<footer>Revision days 7 · 14 · 21 · 28 · 35 · 42 · 49 · 56 · 63 · 70 · 77 · 84 &nbsp;|&nbsp; Mock test Day 90 &nbsp;|&nbsp; Click a day's title to open its notes &nbsp;|&nbsp; v11</footer>
+<footer>Revision days 7 · 14 · 21 · 28 · 35 · 42 · 49 · 56 · 63 · 70 · 77 · 84 &nbsp;|&nbsp; Mock test Day 90 &nbsp;|&nbsp; Click a day's title to open its notes &nbsp;|&nbsp; v12</footer>
 </main>
 <script>
 const P={ar:["Arrays","#e5484d"],ha:["Hashing","#f76b15"],tp:["Two Pointers","#e93d82"],sw:["Sliding Window","#f2a50c"],st:["Stack","#a07a4b"],bs:["Binary Search","#3e8ef7"],ll:["Linked List","#5b7cfa"],tr:["Trees","#2fb457"],hp:["Heap","#12a594"],bt:["Backtracking","#8e4ec6"],tri:["Tries","#c04fd1"],gr:["Graphs","#30a46c"],d1:["DP 1D","#3451b2"],d2:["DP 2D","#5472e4"],gd:["Greedy","#d6409f"],iv:["Intervals","#d9a100"],ma:["Math & Geometry","#0eaeb5"],bi:["Bit Manipulation","#6e9bd6"],rv:["Revision","#8b8d98"],mk:["Mock Test","#6f6f7a"]};
