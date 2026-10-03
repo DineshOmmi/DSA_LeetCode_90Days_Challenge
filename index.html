@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>90-Day DSA Mastery</title>
+<style>
+:root{color-scheme:light dark;--fg:#1f2328;--bgc:#fff;--E:#2fa84f;--M:#e39b00;--H:#e5484d}
+@media (prefers-color-scheme:dark){:root{--fg:#ececec;--bgc:#191919;--E:#3dd16a;--M:#f5b73b;--H:#ff6369}}
+:root{--mute:color-mix(in srgb,var(--fg) 56%,transparent);--line:color-mix(in srgb,var(--fg) 12%,transparent);--soft:color-mix(in srgb,var(--fg) 6%,transparent)}
+*{box-sizing:border-box}
+html,body{margin:0;background:transparent}
+body{color:var(--fg);font:14px/1.45 ui-sans-serif,-apple-system,"Segoe UI",Inter,Roboto,"Helvetica Neue",sans-serif;-webkit-font-smoothing:antialiased}
+main{width:100%;padding:6px 2px 24px}
+[hidden]{display:none!important}
+button,input{font:inherit;color:inherit}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;margin-bottom:12px}
+.ttl{display:flex;align-items:baseline;gap:6px 12px;flex-wrap:wrap}
+h1{margin:0;font-size:21px;font-weight:750;letter-spacing:-.02em}
+.sub{margin:0;color:var(--mute);font-size:12.5px}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;gap:2px;padding:2px;border:1px solid var(--line);border-radius:99px;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg button{border:0;background:transparent;color:var(--mute);font-size:12px;padding:4px 12px;border-radius:99px;cursor:pointer;white-space:nowrap}
+.seg button[aria-pressed=true]{background:color-mix(in srgb,var(--fg) 12%,transparent);color:var(--fg);font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.tile{--c:var(--E);padding:10px 12px 11px;border-radius:12px;border:1px solid var(--line);background:color-mix(in srgb,var(--c) 7%,transparent)}
+.tile .tl{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.tile .tl span{font-size:12px;color:var(--mute);display:flex;align-items:center;gap:6px}
+.tile .tl span i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.tile b{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.tile b small{font-size:12px;font-weight:500;color:var(--mute);margin-left:2px}
+.bar{height:5px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--c);transition:width .35s}
+.tile.all{--c:var(--E)}
+.tile.all .bar i{background:linear-gradient(90deg,var(--E),#4cc9a7)}
+.tile .ft{margin-top:6px;font-size:11px;color:var(--mute)}
+.tools{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:transparent;border-radius:99px;padding:3px 10px 3px 8px;font-size:12px;cursor:pointer;white-space:nowrap;transition:background .15s}
+.chip:hover{background:var(--soft)}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.chip[aria-pressed=true]{background:color-mix(in srgb,var(--c) 20%,transparent);border-color:color-mix(in srgb,var(--c) 42%,transparent)}
+.key{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;color:var(--mute);font-size:12px;margin:0 0 10px}
+.key .d{display:inline-flex;align-items:center;gap:5px}
+.key .d b{width:8px;height:8px;border-radius:50%}
+.sp{flex:1}
+.mini{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mute)}
+.mini input,.mini button{font-size:12px;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:8px;padding:3px 9px}
+.mini button{cursor:pointer;color:var(--mute)}
+.mini button:hover{background:var(--soft)}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
+.wk{grid-column:1/-1;display:flex;align-items:baseline;gap:10px;margin:8px 2px 0;font-size:12px;color:var(--mute)}
+.wk:first-child{margin-top:0}
+.wk b{color:var(--fg);font-size:12.5px;letter-spacing:.02em;text-transform:uppercase}
+.wk i{flex:1;height:1px;background:var(--line);align-self:center}
+.day{--c:#888;display:flex;flex-direction:column;gap:6px;padding:9px 10px;border-radius:12px;background:color-mix(in srgb,var(--c) 9%,transparent);border:1px solid color-mix(in srgb,var(--c) 16%,transparent);transition:transform .18s,opacity .2s,background .2s}
+@media (hover:hover){.day:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--c) 14%,transparent)}}
+.day.dim{opacity:.2}
+.day.rv{background:transparent;border:1px dashed var(--line)}
+.day.mk{background:color-mix(in srgb,var(--fg) 8%,transparent);border-color:var(--line)}
+.hd{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px}
+.dn{font-weight:700;font-size:13px;color:var(--fg);text-decoration:none;white-space:nowrap}
+.dn:hover{text-decoration:underline}
+.dn small{font-weight:500;color:var(--mute);margin-left:6px;font-size:11px}
+.pt{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--mute);white-space:nowrap;max-width:100%}
+.pt i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+.tag{display:none;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--fg);color:var(--bgc);padding:1px 7px;border-radius:99px}
+.day.today .tag{display:inline-block}
+.day ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.day li label{display:flex;gap:9px;align-items:flex-start;cursor:pointer;font-size:12px;line-height:1.28;padding:3px 0}
+.day li input{appearance:none;-webkit-appearance:none;flex:none;width:16px;height:16px;margin:0;border-radius:50%;border:1.6px solid color-mix(in srgb,var(--c) 65%,transparent);background:transparent;display:grid;place-items:center;cursor:pointer;transition:background .15s}
+.day li input::after{content:"";width:8px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px) scale(0);transition:transform .15s}
+.day li input:checked{background:var(--c);border-color:var(--c)}
+.day li input:checked::after{transform:rotate(-45deg) translate(1px,-1px) scale(1)}
+.day li span{flex:1;min-width:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.day li a{color:inherit;text-decoration:none}
+.day li a:hover{text-decoration:underline}
+.day li em{flex:none;width:7px;height:7px;border-radius:50%;margin-top:5px}
+.day li input:checked~span{color:var(--mute);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--fg) 30%,transparent)}
+.note{margin:0;font-size:11.5px;color:var(--mute)}
+.day.full .hd::after{content:"\2713";display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--E);color:#fff;font-size:11px;font-weight:700;order:3}
+footer{margin-top:12px;color:var(--mute);font-size:12px}
+:focus-visible{outline:2px solid color-mix(in srgb,var(--fg) 45%,transparent);outline-offset:2px}
+:focus:not(:focus-visible){outline:none}
+@media (max-width:1020px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:760px){.tiles{grid-template-columns:repeat(2,1fr)}.top{align-items:flex-start}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){
+  main{padding:4px 0 18px}
+  h1{font-size:19px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .tools{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .tools::-webkit-scrollbar{display:none}
+  .ctl{width:100%}
+  .seg{flex:1 1 auto}
+  .sp{display:none}
+  .tile b{font-size:17px}
+}
+</style>
+</head>
+<body>
+<main>
+<div class="top">
+  <div class="ttl"><h1>90-Day DSA Mastery</h1><p class="sub" id="when">LeetCode 150 · 18 patterns · 90 days</p></div>
+  <div class="ctl">
+    <div class="seg" id="tabs" role="group" aria-label="Day range"></div>
+  </div>
+</div>
+<div class="tiles" id="tiles"></div>
+<div class="tools" id="chips"></div>
+<div class="key">
+  <span class="d"><b style="background:var(--E)"></b>Easy</span><span class="d"><b style="background:var(--M)"></b>Medium</span><span class="d"><b style="background:var(--H)"></b>Hard</span>
+  <span class="sp"></span>
+  <span class="mini" id="sv"></span>
+  <label class="mini">Day 1 <input type="date" id="sd"></label>
+  <span class="mini"><button id="go">Today</button><button id="rs">Reset</button></span>
+</div>
+<div class="grid" id="grid"></div>
+<footer>Revision days 7 · 14 · 21 · 28 · 35 · 42 · 49 · 56 · 63 · 70 · 77 · 84 &nbsp;|&nbsp; Mock test Day 90 &nbsp;|&nbsp; Click a day's title to open its notes</footer>
+</main>
+<script>
+const P={ar:["Arrays","#e5484d"],ha:["Hashing","#f76b15"],tp:["Two Pointers","#e93d82"],sw:["Sliding Window","#f2a50c"],st:["Stack","#a07a4b"],bs:["Binary Search","#3e8ef7"],ll:["Linked List","#5b7cfa"],tr:["Trees","#2fb457"],hp:["Heap","#12a594"],bt:["Backtracking","#8e4ec6"],tri:["Tries","#c04fd1"],gr:["Graphs","#30a46c"],d1:["DP 1D","#3451b2"],d2:["DP 2D","#5472e4"],gd:["Greedy","#d6409f"],iv:["Intervals","#d9a100"],ma:["Math & Geometry","#0eaeb5"],bi:["Bit Manipulation","#6e9bd6"],rv:["Revision","#8b8d98"],mk:["Mock Test","#6f6f7a"]};
+const NID=["6ab2d2ca762b1b9034","d6967ccb2ba8b399c6","84b6a5d88b1badec0f","70bd85ebee20d825ab","74a214f14ae4b2d2c2","518248cbd73bd3a1c9","7d9a03fd3ff6835fa3","768cdacbf41e72b819","8e8d84fc6d328700bf","3ba2c8f4f079adffb6","e58432e1a55ffbb463","58adedcf01d17e7614","419c49c3dad289868a","96b617cf2682bedc6a","689c9afe8c71dd6eb8","89aca5dc465285f818","1faa49f6afed8c23f2","0499ecd6b77922606a","9785bdf1b0d9f04ac2","18bb54f16b194f4b1a","4cbb7fee9eab004b70","22907bce7818d27ad1","b39fc6f4790740d800","54920aef4d543bda6b","01b32ccfe94523737f","659d44cb573e9231ab","529e79d548f1f5498f","0cbaa6ff2ca3f6a7f9","2f824dc4d2e620b5ad","4182a2c5e0bbb57201","ccb4edc91fc8ad09d7","fe967ecdc397adb8e5","b5bceee51439901050","30b225d6b85ad98687","9eb7f7e9fdf664cae8","598e6afc9e483c59b6","95ba40ce2df988e302","218941d9bb9ec7dba7","bda15fc226e6445e05","399adafb20895eb454","419b7cc980dfb66c24","13a065fe2ac7b7bc5f","04ae3ae423c0d53652","cf8effeecae73b4aa9","aa9750f87bf854179a","db99d3fbd8fcbf6800","759949f38830761e3e","58bf7bd2dfa7177c21","d08f57d191f0b88a08","cb87a7d7921ff6afc8","cb8c93f4a2fc0c2964","a7a20ff39c2c1bdffd","6391e1c15fd47ee4bc","04af68ce4e79862f8f","ca9f4ef37940da9bbe","c487f1f10378bd76c8","2ead40cc6d2a43c979","388fd4e7adb54b460f","44a653f10a12e59a6e","c492dee8614fac4e57","27b52ceab8d559513f","cdafdafa5d51e4a7a7","7db825ebfde72557d8","af811afb1657f9d09c","10837fdb95179234f6","ec8963c3f05892f45c","98ae0cd4f829850bd1","f2886ae5c8ed790c1d","d7a148e3911c844b07","c180fbfa48796d54c0","24beb6f6918fb21e85","188c9efc8fea01da5e","80ba4fcfd5169afdc1","f99901efce1a1ea27f","bd82bce7e197a6cbcd","5faaf4c713b613571b","308d52d101cd040b68","cfa3bbe4fbc8635c18","abb652f2bc42b7bffb","eea097c53e748409c6","2587d0d32ec1147268","d0979bc26c34be3eb9","648064c3c2a1ab2efa","26a43be5ee4e1cb30d","118b9ae4e1773bd30d","7cb0bbf24f408de0a4","748c65dfe2b6be3728","80a5c2e8f521e9918d","559dafe43a705d3422","2b9050d4ae8f68a825"];
+const R=s=>"rv|Redo Days "+s+":x";
+const D=[
+"ar|Contains Duplicate@contains-duplicate:E;Product of Array Except Self@product-of-array-except-self:M;Valid Sudoku@valid-sudoku:M",
+"ha|Valid Anagram@valid-anagram:E;Two Sum@two-sum:E;Group Anagrams@group-anagrams:M",
+"ha|Top K Frequent Elements@top-k-frequent-elements:M;Longest Consecutive Sequence@longest-consecutive-sequence:M",
+"ha|Subarray Sum Equals K@subarray-sum-equals-k:M",
+"tp|Valid Palindrome@valid-palindrome:E;Two Sum II - Input Array Is Sorted@two-sum-ii-input-array-is-sorted:M",
+"tp|Sort Colors@sort-colors:M;3Sum@3sum:M",
+R("1-6"),
+"tp|Container With Most Water@container-with-most-water:M;Trapping Rain Water@trapping-rain-water:H",
+"sw|Best Time to Buy and Sell Stock@best-time-to-buy-and-sell-stock:E;Longest Substring Without Repeating Characters@longest-substring-without-repeating-characters:M",
+"sw|Longest Repeating Character Replacement@longest-repeating-character-replacement:M;Permutation in String@permutation-in-string:M",
+"sw|Find All Anagrams in a String@find-all-anagrams-in-a-string:M;Minimum Window Substring@minimum-window-substring:H",
+"sw|Sliding Window Maximum@sliding-window-maximum:H",
+"st|Valid Parentheses@valid-parentheses:E;Implement Queue using Stacks@implement-queue-using-stacks:E;Min Stack@min-stack:M",
+R("8-13"),
+"st|Evaluate Reverse Polish Notation@evaluate-reverse-polish-notation:M;Daily Temperatures@daily-temperatures:M",
+"st|Generate Parentheses@generate-parentheses:M;Car Fleet@car-fleet:M",
+"st|Largest Rectangle in Histogram@largest-rectangle-in-histogram:H",
+"bs|Binary Search@binary-search:E;Find First and Last Position in Sorted Array@find-first-and-last-position-of-element-in-sorted-array:M",
+"bs|Search a 2D Matrix@search-a-2d-matrix:M;Koko Eating Bananas@koko-eating-bananas:M",
+"bs|Find Minimum in Rotated Sorted Array@find-minimum-in-rotated-sorted-array:M;Search in Rotated Sorted Array@search-in-rotated-sorted-array:M",
+R("15-20"),
+"bs|Time Based Key-Value Store@time-based-key-value-store:M;Median of Two Sorted Arrays@median-of-two-sorted-arrays:H",
+"ll|Reverse Linked List@reverse-linked-list:E;Merge Two Sorted Lists@merge-two-sorted-lists:E;Linked List Cycle@linked-list-cycle:E",
+"ll|Palindrome Linked List@palindrome-linked-list:E;Reorder List@reorder-list:M",
+"ll|Remove Nth Node From End of List@remove-nth-node-from-end-of-list:M;Find the Duplicate Number@find-the-duplicate-number:M",
+"ll|Add Two Numbers@add-two-numbers:M;Copy List with Random Pointer@copy-list-with-random-pointer:M",
+"ll|LRU Cache@lru-cache:M;Merge K Sorted Lists@merge-k-sorted-lists:H",
+R("22-27"),
+"ll|Reverse Nodes in K-Group@reverse-nodes-in-k-group:H",
+"tr|Invert Binary Tree@invert-binary-tree:E;Maximum Depth of Binary Tree@maximum-depth-of-binary-tree:E;Same Tree@same-tree:E",
+"tr|Diameter of Binary Tree@diameter-of-binary-tree:E;Balanced Binary Tree@balanced-binary-tree:E;Subtree of Another Tree@subtree-of-another-tree:E",
+"tr|Lowest Common Ancestor of a BST@lowest-common-ancestor-of-a-binary-search-tree:M;Binary Tree Level Order Traversal@binary-tree-level-order-traversal:M",
+"tr|Binary Tree Right Side View@binary-tree-right-side-view:M;Count Good Nodes in Binary Tree@count-good-nodes-in-binary-tree:M",
+"tr|Validate Binary Search Tree@validate-binary-search-tree:M;Kth Smallest Element in a BST@kth-smallest-element-in-a-bst:M",
+R("29-34"),
+"tr|Construct Binary Tree from Preorder and Inorder@construct-binary-tree-from-preorder-and-inorder-traversal:M;Binary Tree Maximum Path Sum@binary-tree-maximum-path-sum:H",
+"tr|Serialize and Deserialize Binary Tree@serialize-and-deserialize-binary-tree:H",
+"hp|Kth Largest Element in a Stream@kth-largest-element-in-a-stream:E;Last Stone Weight@last-stone-weight:E",
+"hp|K Closest Points to Origin@k-closest-points-to-origin:M;Kth Largest Element in an Array@kth-largest-element-in-an-array:M",
+"hp|Task Scheduler@task-scheduler:M;Design Twitter@design-twitter:M",
+"hp|Find Median from Data Stream@find-median-from-data-stream:H",
+R("36-41"),
+"bt|Subsets@subsets:M;Subsets II@subsets-ii:M",
+"bt|Combination Sum@combination-sum:M;Combination Sum II@combination-sum-ii:M",
+"bt|Permutations@permutations:M;Word Search@word-search:M",
+"bt|Palindrome Partitioning@palindrome-partitioning:M;Letter Combinations of a Phone Number@letter-combinations-of-a-phone-number:M",
+"bt|N-Queens@n-queens:H",
+"tri|Implement Trie (Prefix Tree)@implement-trie-prefix-tree:M;Design Add and Search Words Data Structure@design-add-and-search-words-data-structure:M",
+R("43-48"),
+"gr|Word Search II@word-search-ii:H;Number of Islands@number-of-islands:M",
+"gr|Max Area of Island@max-area-of-island:M;Clone Graph@clone-graph:M",
+"gr|Number of Provinces@number-of-provinces:M;Rotting Oranges@rotting-oranges:M",
+"gr|Pacific Atlantic Water Flow@pacific-atlantic-water-flow:M;Surrounded Regions@surrounded-regions:M",
+"gr|Course Schedule@course-schedule:M;Course Schedule II@course-schedule-ii:M",
+"gr|Redundant Connection@redundant-connection:M;Word Ladder@word-ladder:H",
+R("50-55"),
+"gr|Network Delay Time@network-delay-time:M;Min Cost to Connect All Points@min-cost-to-connect-all-points:M",
+"gr|Cheapest Flights Within K Stops@cheapest-flights-within-k-stops:M;Swim in Rising Water@swim-in-rising-water:H",
+"gr|Reconstruct Itinerary@reconstruct-itinerary:H",
+"d1|Climbing Stairs@climbing-stairs:E;Min Cost Climbing Stairs@min-cost-climbing-stairs:E",
+"d1|House Robber@house-robber:M;House Robber II@house-robber-ii:M",
+"d1|Longest Palindromic Substring@longest-palindromic-substring:M;Palindromic Substrings@palindromic-substrings:M",
+R("57-62"),
+"d1|Decode Ways@decode-ways:M;Coin Change@coin-change:M",
+"d1|Maximum Product Subarray@maximum-product-subarray:M;Word Break@word-break:M",
+"d1|Longest Increasing Subsequence@longest-increasing-subsequence:M;Partition Equal Subset Sum@partition-equal-subset-sum:M",
+"d2|Unique Paths@unique-paths:M;Longest Common Subsequence@longest-common-subsequence:M",
+"d2|Coin Change II@coin-change-ii:M;Target Sum@target-sum:M",
+"d2|Best Time to Buy and Sell Stock with Cooldown@best-time-to-buy-and-sell-stock-with-cooldown:M;Edit Distance@edit-distance:M",
+R("64-69"),
+"d2|Interleaving String@interleaving-string:M;Longest Increasing Path in a Matrix@longest-increasing-path-in-a-matrix:H",
+"d2|Distinct Subsequences@distinct-subsequences:H;Burst Balloons@burst-balloons:H",
+"d2|Regular Expression Matching@regular-expression-matching:H",
+"gd|Maximum Subarray@maximum-subarray:M;Jump Game@jump-game:M",
+"gd|Jump Game II@jump-game-ii:M;Gas Station@gas-station:M",
+"gd|Hand of Straights@hand-of-straights:M;Merge Triplets to Form Target Triplet@merge-triplets-to-form-target-triplet:M",
+R("71-76"),
+"gd|Partition Labels@partition-labels:M;Valid Parenthesis String@valid-parenthesis-string:M",
+"iv|Insert Interval@insert-interval:M;Merge Intervals@merge-intervals:M",
+"iv|Non-overlapping Intervals@non-overlapping-intervals:M;Minimum Interval to Include Each Query@minimum-interval-to-include-each-query:H",
+"ma|Rotate Image@rotate-image:M;Spiral Matrix@spiral-matrix:M",
+"ma|Set Matrix Zeroes@set-matrix-zeroes:M;Happy Number@happy-number:E",
+"ma|Plus One@plus-one:E;Pow(x, n)@powx-n:M",
+R("78-83"),
+"ma|Multiply Strings@multiply-strings:M;Detect Squares@detect-squares:M",
+"bi|Single Number@single-number:E;Number of 1 Bits@number-of-1-bits:E",
+"bi|Counting Bits@counting-bits:E;Reverse Bits@reverse-bits:E",
+"bi|Missing Number@missing-number:E;Sum of Two Integers@sum-of-two-integers:M",
+"bi|Reverse Integer (then redo your 5 weakest problems)@reverse-integer:M",
+"mk|2 random Mediums + 1 Hard:H;Timed: 45 min each:M"
+];
+D[6]=R("1-6");
+const days=D.map((s,i)=>{const[k,rest]=s.split("|");return{n:i+1,k,items:rest.split(";").map(x=>{const j=x.lastIndexOf(":");const a=x.slice(0,j),at=a.lastIndexOf("@");return at<0?[a,x.slice(j+1),""]:[a.slice(0,at),x.slice(j+1),a.slice(at+1)]})}});
+const $=id=>document.getElementById(id);
+const E=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
+const RNG=[[1,28],[29,56],[57,90],[1,90]],TL=["Weeks 1–4","Weeks 5–8","Weeks 9–13","All"];
+const study=d=>d.k!=="rv"&&d.k!=="mk";
+const TOT={E:0,M:0,H:0};days.forEach(d=>{if(study(d))d.items.forEach(it=>{if(TOT[it[1]]!=null)TOT[it[1]]++})});
+const ALL=TOT.E+TOT.M+TOT.H;
+let st={done:{},start:"2026-10-01",filter:"",tab:-1};
+try{const r=localStorage.getItem("lc150c");if(r)st=Object.assign(st,JSON.parse(r))}catch(e){}
+const inTab=n=>n>=RNG[st.tab][0]&&n<=RNG[st.tab][1];
+const dayNo=()=>Math.floor((new Date(new Date().toDateString())-new Date(st.start+"T00:00:00"))/864e5)+1;
+if(st.tab<0||st.tab>3){const n=dayNo();st.tab=n>56&&n<=90?2:n>28&&n<=56?1:0}
+let ref=null,timer=null,saving=false,pending=false,lsOk=true;
+try{localStorage.setItem("_t","1");localStorage.removeItem("_t")}catch(e){lsOk=false}
+const stat=t=>{$("sv").textContent=t};
+const payload=()=>({done:st.done,start:st.start,filter:st.filter,tab:st.tab});
+async function flush(){if(!ref)return;if(saving){pending=true;return}saving=true;try{await ref.set(payload());stat("Saved to your account")}catch(e){stat(lsOk?"Saved in this browser only":"Could not save")}saving=false;if(pending){pending=false;flush()}}
+const save=()=>{try{localStorage.setItem("lc150c",JSON.stringify(st))}catch(e){}clearTimeout(timer);timer=setTimeout(flush,600)};
+async function initDb(){
+  try{
+    if(!window.claude||!window.claude.use)throw 0;
+    const[db,user]=await Promise.all([claude.use("db"),claude.use("user")]);
+    if(!db||!user)throw 0;
+    const id=await user.id();if(!id)throw 0;
+    ref=db.doc("data/users/"+id+"/progress2");
+    const sn=await ref.get();
+    if(sn.exists){const d=sn.data();st.done=d.done||{};st.start=d.start||st.start;st.filter=d.filter||"";if(typeof d.tab==="number")st.tab=d.tab;try{localStorage.setItem("lc150c",JSON.stringify(st))}catch(e){}$("sd").value=st.start;render();stat("Synced with your account")}
+    else{await flush()}
+  }catch(e){stat(lsOk?"Saved in this browser only":"Progress can't be saved in this view")}
+}
+const fmt=d=>d.toLocaleDateString(undefined,{month:"short",day:"numeric"});
+const dateOf=n=>{if(!st.start)return null;const d=new Date(st.start+"T00:00:00");d.setDate(d.getDate()+n-1);return d};
+let EL=[],WK=[];
+function render(){
+  const g=$("grid");g.textContent="";EL=[];WK=[];
+  const today=new Date().toDateString();
+  days.forEach(d=>{
+    if(d.n%7===1){const w=(d.n-1)/7+1,a=dateOf(d.n),b=dateOf(Math.min(d.n+6,90));const h=E("div","wk","<b>Week "+w+"</b><span>"+(a?fmt(a)+" – "+fmt(b):"Days "+d.n+"–"+Math.min(d.n+6,90))+"</span><i></i>");h.dataset.n=d.n;g.appendChild(h);WK.push(h)}
+    const[name,col]=P[d.k];
+    const el=E("section","day"+(d.k==="rv"?" rv":d.k==="mk"?" mk":""));el.style.setProperty("--c",col);el.dataset.k=d.k;el.id="day"+d.n;
+    const dt=dateOf(d.n);
+    if(dt&&dt.toDateString()===today)el.classList.add("today");
+    const hd=E("div","hd");
+    const a=E("a","dn","Day "+d.n+(dt?"<small>"+fmt(dt)+"</small>":""));a.href="https://www.notion.so/3ec125c5bdb681"+NID[d.n-1];a.target="_blank";a.rel="noopener";a.title="Open notes for Day "+d.n;
+    hd.append(a,E("span","tag","Today"),E("span","pt","<i></i>"+name));
+    el.appendChild(hd);
+    const ul=E("ul");
+    const items=d.k==="rv"?[[d.items[0][0],"",""]]:d.items;
+    items.forEach((it,i)=>{
+      const id="d"+d.n+"_"+i;
+      const li=E("li"),lb=E("label");
+      const cb=E("input");cb.type="checkbox";cb.checked=!!st.done[id];cb.setAttribute("aria-label",it[0]);
+      cb.onchange=()=>{st.done[id]=cb.checked;save();stats()};
+      const sp=E("span");sp.title=it[0];
+      if(it[2]){const l=E("a");l.href="https://leetcode.com/problems/"+it[2]+"/";l.target="_blank";l.rel="noopener";l.textContent=it[0];sp.appendChild(l)}else sp.textContent=it[0];
+      lb.append(cb,sp);
+      if("EMH".includes(it[1])&&it[1]){const em=E("em");em.style.background="var(--"+it[1]+")";em.title={E:"Easy",M:"Medium",H:"Hard"}[it[1]];lb.appendChild(em)}
+      li.appendChild(lb);ul.appendChild(li);
+    });
+    el.appendChild(ul);
+    if(d.k==="rv")el.appendChild(E("p","note","Redo without peeking at old code"));
+    if(d.k==="mk")el.appendChild(E("p","note","No hints, grade yourself"));
+    g.appendChild(el);EL.push(el);
+  });
+  applyFilter();applyTab();stats();
+}
+function stats(){
+  const dn={E:0,M:0,H:0};let daysDone=0;
+  days.forEach(d=>{
+    const el=EL[d.n-1];
+    const n=d.k==="rv"?1:d.items.length;let all=true;
+    for(let i=0;i<n;i++){const on=!!st.done["d"+d.n+"_"+i];if(on&&study(d)&&dn[d.items[i][1]]!=null)dn[d.items[i][1]]++;if(!on)all=false}
+    el.classList.toggle("full",all);if(all)daysDone++;
+  });
+  const sum=dn.E+dn.M+dn.H;
+  const tiles=[["all","Solved",sum,ALL,"",daysDone+" of 90 days complete"],["","Easy",dn.E,TOT.E,"--E"],["","Medium",dn.M,TOT.M,"--M"],["","Hard",dn.H,TOT.H,"--H"]];
+  const box=$("tiles");
+  if(!box.children.length)tiles.forEach(()=>box.appendChild(E("div","tile")));
+  tiles.forEach((t,i)=>{
+    const el=box.children[i];el.className="tile"+(t[0]?" "+t[0]:"");
+    if(t[4])el.style.setProperty("--c","var("+t[4]+")");
+    const pct=t[3]?Math.round(t[2]/t[3]*100):0;
+    el.innerHTML='<div class="tl"><span>'+(t[0]?"":"<i></i>")+t[1]+'</span><b>'+t[2]+'<small>/'+t[3]+'</small></b></div><div class="bar"><i style="width:'+pct+'%"></i></div>'+(t[5]?'<div class="ft">'+pct+'% · '+t[5]+'</div>':'<div class="ft">'+pct+'% done · '+(t[3]-t[2])+' left</div>');
+  });
+  const n=dayNo();
+  $("when").textContent=n<1?"Starts "+fmt(dateOf(1)):n>90?"90-day plan finished":"Day "+n+" of 90 · "+(90-n)+" days left";
+}
+function applyFilter(){
+  EL.forEach(el=>el.classList.toggle("dim",!!st.filter&&el.dataset.k!==st.filter));
+  [...$("chips").children].forEach(c=>c.setAttribute("aria-pressed",c.dataset.k===st.filter));
+}
+function applyTab(){EL.forEach((el,i)=>el.hidden=!inTab(i+1));WK.forEach(h=>h.hidden=!inTab(+h.dataset.n));[...$("tabs").children].forEach((b,i)=>b.setAttribute("aria-pressed",i===st.tab))}
+Object.keys(P).forEach(k=>{
+  const b=E("button","chip","<i></i>"+P[k][0]);b.dataset.k=k;b.style.setProperty("--c",P[k][1]);
+  b.onclick=()=>{st.filter=st.filter===k?"":k;save();applyFilter()};
+  $("chips").appendChild(b);
+});
+TL.forEach((t,i)=>{const b=E("button","",t);b.onclick=()=>{st.tab=i;save();applyTab()};$("tabs").appendChild(b)});
+$("sd").value=st.start;
+$("sd").onchange=e=>{if(!e.target.value)return;st.start=e.target.value;save();render()};
+$("go").onclick=()=>{const n=dayNo();if(n<1||n>90)return;if(!inTab(n)){st.tab=n>56?2:n>28?1:0;save();applyTab()}const el=$("day"+n);if(el&&el.scrollIntoView)el.scrollIntoView({behavior:"smooth",block:"center"})};
+let armed=0;$("rs").onclick=function(){if(!armed){armed=1;this.textContent="Sure? Click again";setTimeout(()=>{armed=0;this.textContent="Reset"},3000);return}armed=0;this.textContent="Reset";st.done={};save();render()};
+render();initDb();
+</script>
+</body>
+</html>
