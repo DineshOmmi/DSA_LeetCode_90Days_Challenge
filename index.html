@@ -67,13 +67,18 @@ h1{margin:0;font-size:21px;font-weight:750;letter-spacing:-.02em}
 .day.dim{opacity:.2}
 .day.rv{background:transparent;border:1px dashed var(--line)}
 .day.mk{background:color-mix(in srgb,var(--fg) 8%,transparent);border-color:var(--line)}
-.hd{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px}
+.hd{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 6px}
 .dn{font-weight:700;font-size:13px;color:var(--fg);text-decoration:none;white-space:nowrap}
 .dn:hover{text-decoration:underline}
 .dn small{font-weight:500;color:var(--mute);margin-left:6px;font-size:11px}
-.pt{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--mute);white-space:nowrap;max-width:100%}
+.st{display:flex;align-items:center;gap:5px;justify-self:end}
+.pt{grid-column:1/-1;display:flex;align-items:center;gap:5px;font-size:11px;color:var(--mute);min-width:0}
+.pt span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pt i{flex:none}
+.ck{display:none;place-items:center;width:17px;height:17px;border-radius:50%;background:var(--E);color:#fff;font-size:10.5px;font-weight:700}
+.day.full .ck{display:grid}
 .pt i{width:7px;height:7px;border-radius:50%;background:var(--c)}
-.tag{display:none;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--fg);color:var(--bgc);padding:1px 7px;border-radius:99px}
+.tag{display:none;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--fg);color:var(--bgc);padding:1px 6px;border-radius:99px}
 .day.today .tag{display:inline-block}
 .day ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
 .day li label{display:flex;gap:9px;align-items:flex-start;cursor:pointer;font-size:12px;line-height:1.28;padding:3px 0}
@@ -81,17 +86,17 @@ h1{margin:0;font-size:21px;font-weight:750;letter-spacing:-.02em}
 .day li input::after{content:"";width:8px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px) scale(0);transition:transform .15s}
 .day li input:checked{background:var(--c);border-color:var(--c)}
 .day li input:checked::after{transform:rotate(-45deg) translate(1px,-1px) scale(1)}
-.day li span{flex:1;min-width:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.day li span{flex:1;min-width:0;overflow-wrap:break-word}
+.nw{white-space:nowrap}
 .day li a{color:inherit;text-decoration:none}
 .day li a:hover{text-decoration:underline}
-.day li em{flex:none;width:7px;height:7px;border-radius:50%;margin-top:5px}
+.day li em{display:inline-block;width:7px;height:7px;border-radius:50%;margin-left:6px;vertical-align:middle}
 .day li input:checked~span{color:var(--mute);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--fg) 30%,transparent)}
 .note{margin:0;font-size:11.5px;color:var(--mute)}
-.day.full .hd::after{content:"\2713";display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--E);color:#fff;font-size:11px;font-weight:700;order:3}
 footer{margin-top:12px;color:var(--mute);font-size:12px}
 :focus-visible{outline:2px solid color-mix(in srgb,var(--fg) 45%,transparent);outline-offset:2px}
 :focus:not(:focus-visible){outline:none}
-@media (max-width:1100px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:1279px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:620px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.pager span{min-width:120px}}
 @media (max-width:520px){
   main{padding:4px 0 18px}
@@ -122,7 +127,7 @@ footer{margin-top:12px;color:var(--mute);font-size:12px}
   <span class="mini"><button id="go">Today</button><button id="rs">Reset</button></span>
 </div>
 <div class="grid" id="grid"></div>
-<footer>Revision days 7 · 14 · 21 · 28 · 35 · 42 · 49 · 56 · 63 · 70 · 77 · 84 &nbsp;|&nbsp; Mock test Day 90 &nbsp;|&nbsp; Click a day's title to open its notes &nbsp;|&nbsp; v10</footer>
+<footer>Revision days 7 · 14 · 21 · 28 · 35 · 42 · 49 · 56 · 63 · 70 · 77 · 84 &nbsp;|&nbsp; Mock test Day 90 &nbsp;|&nbsp; Click a day's title to open its notes &nbsp;|&nbsp; v11</footer>
 </main>
 <script>
 const P={ar:["Arrays","#e5484d"],ha:["Hashing","#f76b15"],tp:["Two Pointers","#e93d82"],sw:["Sliding Window","#f2a50c"],st:["Stack","#a07a4b"],bs:["Binary Search","#3e8ef7"],ll:["Linked List","#5b7cfa"],tr:["Trees","#2fb457"],hp:["Heap","#12a594"],bt:["Backtracking","#8e4ec6"],tri:["Tries","#c04fd1"],gr:["Graphs","#30a46c"],d1:["DP 1D","#3451b2"],d2:["DP 2D","#5472e4"],gd:["Greedy","#d6409f"],iv:["Intervals","#d9a100"],ma:["Math & Geometry","#0eaeb5"],bi:["Bit Manipulation","#6e9bd6"],rv:["Revision","#8b8d98"],mk:["Mock Test","#6f6f7a"]};
@@ -266,7 +271,7 @@ function render(){
     if(dt&&dt.toDateString()===today)el.classList.add("today");
     const hd=E("div","hd");
     const a=E("a","dn","Day "+d.n+(dt?"<small>"+fmt(dt)+"</small>":""));a.href="https://www.notion.so/3ec125c5bdb681"+NID[d.n-1];a.target="_blank";a.rel="noopener";a.title="Open notes for Day "+d.n;
-    hd.append(a,E("span","tag","Today"),E("span","pt","<i></i>"+name));
+    const bd=E("span","st");bd.append(E("span","tag","Today"),E("span","ck","\u2713"));hd.append(a,bd,E("span","pt","<i></i><span>"+name+"</span>"));
     el.appendChild(hd);
     const ul=E("ul");
     const items=d.k==="rv"?[[d.items[0][0],"",""]]:d.items;
@@ -276,9 +281,13 @@ function render(){
       const cb=E("input");cb.type="checkbox";cb.checked=!!st.done[id];cb.setAttribute("aria-label",it[0]);
       cb.onchange=()=>{st.done[id]=cb.checked;save();stats()};
       const sp=E("span");sp.title=it[0];
-      if(it[2]){const l=E("a");l.href="https://leetcode.com/problems/"+it[2]+"/";l.target="_blank";l.rel="noopener";l.textContent=it[0];sp.appendChild(l)}else sp.textContent=it[0];
+      const wd=it[0].split(" "),lastw=wd.pop(),head=wd.length?wd.join(" ")+" ":"";
+      const nw=E("span","nw");nw.textContent=lastw;
+      let host=sp;
+      if(it[2]){const l=E("a");l.href="https://leetcode.com/problems/"+it[2]+"/";l.target="_blank";l.rel="noopener";sp.appendChild(l);host=l}
+      host.append(document.createTextNode(head),nw);
       lb.append(cb,sp);
-      if("EMH".includes(it[1])&&it[1]){const em=E("em");em.style.background="var(--"+it[1]+")";em.title={E:"Easy",M:"Medium",H:"Hard"}[it[1]];lb.appendChild(em)}
+      if("EMH".includes(it[1])&&it[1]){const em=E("em");em.style.background="var(--"+it[1]+")";em.title={E:"Easy",M:"Medium",H:"Hard"}[it[1]];nw.appendChild(em)}
       li.appendChild(lb);ul.appendChild(li);
     });
     el.appendChild(ul);
