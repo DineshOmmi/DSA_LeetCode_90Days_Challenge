@@ -9,7 +9,8 @@
 @media (prefers-color-scheme:dark){:root{--fg:#ececec;--bgc:#191919;--E:#3dd16a;--M:#f5b73b;--H:#ff6369}}
 :root{--mute:color-mix(in srgb,var(--fg) 56%,transparent);--line:color-mix(in srgb,var(--fg) 12%,transparent);--soft:color-mix(in srgb,var(--fg) 6%,transparent)}
 *{box-sizing:border-box}
-html,body{margin:0;background:transparent;overflow-x:hidden}
+html,body{margin:0;background:transparent;overflow-x:hidden;scrollbar-width:none;-ms-overflow-style:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;height:0;display:none}
 body{color:var(--fg);font:14px/1.45 ui-sans-serif,-apple-system,"Segoe UI",Inter,Roboto,"Helvetica Neue",sans-serif;-webkit-font-smoothing:antialiased}
 main{width:100%;padding:6px 2px 24px}
 [hidden]{display:none!important}
@@ -229,6 +230,7 @@ const TOT={E:0,M:0,H:0};days.forEach(d=>{if(study(d))d.items.forEach(it=>{if(TOT
 const ALL=TOT.E+TOT.M+TOT.H;
 let st={done:{},start:"2026-10-01",filter:"",all:false};
 try{const r=localStorage.getItem("lc150c");if(r)st=Object.assign(st,JSON.parse(r))}catch(e){}
+st.all=false;
 const inTab=n=>st.all||weekOf(n)===WKN;
 const dayNo=()=>Math.floor((new Date(new Date().toDateString())-new Date(st.start+"T00:00:00"))/864e5)+1;
 WKN=(()=>{const n=dayNo();return n<1?1:n>90?13:weekOf(n)})();
@@ -246,7 +248,7 @@ async function initDb(){
     const id=await user.id();if(!id)throw 0;
     ref=db.doc("data/users/"+id+"/progress2");
     const sn=await ref.get();
-    if(sn.exists){const d=sn.data();st.done=d.done||{};st.start=d.start||st.start;st.filter=d.filter||"";st.all=!!d.all;try{localStorage.setItem("lc150c",JSON.stringify(st))}catch(e){}$("sd").value=st.start;render();stat("Synced with your account")}
+    if(sn.exists){const d=sn.data();st.done=d.done||{};st.start=d.start||st.start;st.filter=d.filter||"";try{localStorage.setItem("lc150c",JSON.stringify(st))}catch(e){}$("sd").value=st.start;render();stat("Synced with your account")}
     else{await flush()}
   }catch(e){stat(lsOk?"Saved in this browser only":"Progress can't be saved in this view")}
 }
