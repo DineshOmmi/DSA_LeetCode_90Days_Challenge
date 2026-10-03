@@ -122,7 +122,7 @@ footer{margin-top:12px;color:var(--mute);font-size:12px}
   <span class="mini"><button id="go">Today</button><button id="rs">Reset</button></span>
 </div>
 <div class="grid" id="grid"></div>
-<footer>Revision days 7 · 14 · 21 · 28 · 35 · 42 · 49 · 56 · 63 · 70 · 77 · 84 &nbsp;|&nbsp; Mock test Day 90 &nbsp;|&nbsp; Click a day's title to open its notes</footer>
+<footer>Revision days 7 · 14 · 21 · 28 · 35 · 42 · 49 · 56 · 63 · 70 · 77 · 84 &nbsp;|&nbsp; Mock test Day 90 &nbsp;|&nbsp; Click a day's title to open its notes &nbsp;|&nbsp; v10</footer>
 </main>
 <script>
 const P={ar:["Arrays","#e5484d"],ha:["Hashing","#f76b15"],tp:["Two Pointers","#e93d82"],sw:["Sliding Window","#f2a50c"],st:["Stack","#a07a4b"],bs:["Binary Search","#3e8ef7"],ll:["Linked List","#5b7cfa"],tr:["Trees","#2fb457"],hp:["Heap","#12a594"],bt:["Backtracking","#8e4ec6"],tri:["Tries","#c04fd1"],gr:["Graphs","#30a46c"],d1:["DP 1D","#3451b2"],d2:["DP 2D","#5472e4"],gd:["Greedy","#d6409f"],iv:["Intervals","#d9a100"],ma:["Math & Geometry","#0eaeb5"],bi:["Bit Manipulation","#6e9bd6"],rv:["Revision","#8b8d98"],mk:["Mock Test","#6f6f7a"]};
@@ -313,11 +313,16 @@ function applyFilter(){
   EL.forEach(el=>el.classList.toggle("dim",!!st.filter&&el.dataset.k!==st.filter));
   $("pf").value=st.filter||"";
 }
+function fit(){
+  const m=document.querySelector("main");m.style.zoom=1;
+  if(st.all)return;
+  for(let i=0;i<4;i++){const h=m.getBoundingClientRect().height,H=window.innerHeight;if(!H||h<=H)break;const z=Math.max(.55,(parseFloat(m.style.zoom)||1)*(H/h)*.98);m.style.zoom=z}
+}
 function applyTab(){EL.forEach((el,i)=>el.hidden=!inTab(i+1));WK.forEach(h=>h.hidden=!st.all);
   const a=dateOf((WKN-1)*7+1),b=dateOf(Math.min(WKN*7,90));
   $("wl").textContent=st.all?"All 13 weeks":"Week "+WKN+(a?" · "+fmt(a)+" – "+fmt(b):"");
   $("pv").disabled=st.all||WKN<=1;$("nx").disabled=st.all||WKN>=13;
-  $("all").setAttribute("aria-pressed",st.all);$("all").textContent=st.all?"One week":"All weeks"}
+  $("all").setAttribute("aria-pressed",st.all);$("all").textContent=st.all?"One week":"All weeks";requestAnimationFrame(fit)}
 {const o=E("option","","All patterns");o.value="";$("pf").appendChild(o);Object.keys(P).forEach(k=>{const o=E("option","",P[k][0]);o.value=k;$("pf").appendChild(o)});$("pf").onchange=e=>{st.filter=e.target.value;save();applyFilter()}}
 $("pv").onclick=()=>{if(WKN>1){WKN--;applyTab()}};
 $("nx").onclick=()=>{if(WKN<13){WKN++;applyTab()}};
@@ -326,7 +331,7 @@ $("sd").value=st.start;
 $("sd").onchange=e=>{if(!e.target.value)return;st.start=e.target.value;save();render()};
 $("go").onclick=()=>{const n=dayNo();if(n<1||n>90)return;if(!inTab(n)){WKN=weekOf(n);applyTab()}const el=$("day"+n);if(el&&el.scrollIntoView)el.scrollIntoView({behavior:"smooth",block:"center"})};
 let armed=0;$("rs").onclick=function(){if(!armed){armed=1;this.textContent="Sure? Click again";setTimeout(()=>{armed=0;this.textContent="Reset"},3000);return}armed=0;this.textContent="Reset";st.done={};save();render()};
-render();initDb();
+render();initDb();addEventListener("resize",()=>requestAnimationFrame(fit));addEventListener("load",fit);
 </script>
 </body>
 </html>
